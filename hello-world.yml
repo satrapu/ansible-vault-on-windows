@@ -1,0 +1,5 @@
+- hosts: docker_hosts
+  roles: 
+    - role: run_hello_world_container
+      docker_image_tag: linux
+      docker_container_name: hello-world-from-satrapu

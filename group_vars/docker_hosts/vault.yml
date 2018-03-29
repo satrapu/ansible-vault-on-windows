@@ -1,0 +1,4 @@
+vault_docker_registry_url:  TBD
+vault_docker_registry_auth_username: TBD
+vault_docker_registry_auth_password: TBD
+vault_docker_registry_auth_email: TBD

@@ -1,0 +1,4 @@
+docker_image_name: hello-world
+docker_image_tag: latest
+
+docker_container_name: hello-world

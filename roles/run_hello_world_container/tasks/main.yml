@@ -1,0 +1,50 @@
+- name: Install pip
+  easy_install:
+    name: pip
+    state: latest
+    executable: /usr/local/bin/easy_install
+  become: true
+
+- name: Install docker-py
+  pip:
+    name: docker-py
+    state: latest
+  become: true
+
+- name: "Login into Docker registry {{ docker_registry_url }}"
+  docker_login:
+    registry_url: "{{ docker_registry_url }}"
+    username: "{{ docker_registry_auth_username }}"
+    password: "{{ docker_registry_auth_password }}"
+    email: "{{ docker_registry_auth_email }}"
+    state: present
+
+- name: "Pull Docker image {{ docker_image_name }}:{{ docker_image_tag }}"
+  docker_image:
+    name: "{{ docker_image_name }}"
+    tag: "{{ docker_image_tag }}"
+    state: present
+
+- name: "Logout from Docker registry {{ docker_registry_url }}"
+  docker_login:
+    state: absent
+
+- name: "Run Docker container {{ docker_container_name }}"
+  docker_container:
+    name: "{{ docker_container_name }}"
+    image: "{{ docker_image_name }}:{{ docker_image_tag }}"
+    state: present
+
+- name: "Remove Docker container {{ docker_container_name }}"
+  docker_container:
+    name: "{{ docker_container_name }}"
+    image: "{{ docker_image_name }}:{{ docker_image_tag }}"
+    state: absent
+    keep_volumes: False
+
+- name: "Remove Docker image {{ docker_image_name }}:{{ docker_image_tag }}"
+  docker_image:
+    name: "{{ docker_image_name }}"
+    tag: "{{ docker_image_tag }}"
+    state: absent
+    force: yes

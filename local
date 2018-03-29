@@ -1,0 +1,13 @@
+### Ansible inventory file ###
+
+# "ansible_host": Update the value of this key with the outcome of the  "docker-machine ip ansible-vault" run on your Windows Docker host.
+#
+# "ansible_ssh_private_key_file": Leave this property unchanged since the id_rsa file will be provided as part of a Docker volume.
+# Docker Machine setups SSH using user "docker" and a private key located here: "C:\Users\<USER_WITH_ADMIN_RIGHTS>\.docker\.machine\machines\ansible-vault\id_rsa", 
+# where <USER_WITH_ADMIN_RIGHTS> represents the user with administrator rights who has created the VM in the first place.
+#
+# "ansible_python_interpreter": On Tiny Linux, the path to Python binary is not the expected "/usr/bin/python", so we need to set it explicitly to "/usr/local/bin/python".
+ansible_vault_example ansible_host=192.168.1.168 ansible_port=22 ansible_user=docker ansible_ssh_private_key_file=/opt/docker-machine/ansible-vault/id_rsa ansible_python_interpreter=/usr/local/bin/python
+
+[docker_hosts]
+ansible_vault_example
